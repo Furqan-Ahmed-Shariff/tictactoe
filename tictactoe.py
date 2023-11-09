@@ -65,34 +65,53 @@ def winner(board):
     """
     Returns the winner of the game, if there is one.
     """
+    # For every row in the board
     for row in board:
-        if row[0] is not EMPTY and row[0] == row[1] == row[2]:
+        if row[0] == row[1] == row[2]:
             return row[0]
-    if board[0][0] is not EMPTY and board[0][0] == board[1][1] == board[2][2]:
-        return board[0][0]
-    if board[0][2] is not EMPTY and board[0][2] == board[1][1] == board[2][0]:
-        return board[0][2]
 
-    if board[0][0] is not EMPTY and board[0][0] == board[1][0] == board[2][0]:
-        return board[0][0]
+    # For top-left to right diagonal and the first column
+    if board[0][0] is not EMPTY:
+        if board[0][0] == board[1][1] == board[2][2]:
+            return board[0][0]
+        if board[0][0] == board[1][0] == board[2][0]:
+            return board[0][0]
+
+    # For the middle column
     if board[0][1] is not EMPTY and board[0][1] == board[1][1] == board[2][1]:
         return board[0][1]
-    if board[0][2] is not EMPTY and board[0][2] == board[1][2] == board[2][2]:
-        return board[0][2]
+
+    # For top-right to left diagonal and the rightmost column
+    if board[0][2] is not EMPTY:
+        if board[0][2] == board[1][1] == board[2][0]:
+            return board[0][2]
+        if board[0][2] == board[1][2] == board[2][2]:
+            return board[0][2]
 
 
 def terminal(board):
     """
     Returns True if game is over, False otherwise.
     """
-    raise NotImplementedError
+    if winner(board):
+        return True
+    for row in board:
+        if EMPTY in row:
+            return False
+
+    return True
 
 
 def utility(board):
     """
     Returns 1 if X has won the game, -1 if O has won, 0 otherwise.
     """
-    raise NotImplementedError
+    win_player = winner(board)
+    if win_player is X:
+        return 1
+    if win_player is O:
+        return -1
+    return 0
 
 
 def minimax(board):

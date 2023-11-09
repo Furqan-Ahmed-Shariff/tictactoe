@@ -1,4 +1,4 @@
-from tictactoe import player, EMPTY, X, O, actions, result, winner
+from tictactoe import player, EMPTY, X, O, actions, result, winner, terminal, utility
 
 
 # print(
@@ -32,12 +32,32 @@ from tictactoe import player, EMPTY, X, O, actions, result, winner
 #     )
 # )
 
+# print(
+#     winner(
+#         [
+#             [EMPTY, O, O],
+#             [X, O, X],
+#             [X, O, X],
+#         ]
+#     )
+# )
+
+# print(
+#     terminal(
+#         [
+#             [O, X, O],
+#             [X, O, O],
+#             [X, X, X],
+#         ]
+#     )
+# )
+
 print(
-    winner(
+    utility(
         [
-            [X, EMPTY, O],
-            [O, X, EMPTY],
             [X, O, X],
+            [O, O, X],
+            [X, X, O],
         ]
     )
 )
