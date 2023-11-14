@@ -3,6 +3,7 @@ Tic Tac Toe Player
 """
 
 import math
+import random
 
 X = "X"
 O = "O"
@@ -55,7 +56,7 @@ def result(board, action):
     if action not in possible_actions:
         raise NameError("Not a Valid action")
     toPlay = player(board)
-    new_board = board
+    new_board = deep_copy(board)
     new_board[action[0]][action[1]] = toPlay
 
     return new_board
@@ -118,4 +119,55 @@ def minimax(board):
     """
     Returns the optimal action for the current player on the board.
     """
-    raise NotImplementedError
+    toPlay = player(board)
+    if toPlay == X:
+        p = max_score(board)[1]
+        return p
+    if toPlay == O:
+        p = min_score(board)[1]
+        return p
+    return None
+
+
+def max_score(board):
+    possible_actions = actions(board)
+    maximum = -2
+    scores_actions = {}
+    if terminal(board):
+        return (utility(board), None)
+    for action in possible_actions:
+        minimum_score = min_score(result(board, action))
+        if minimum_score[0] >= maximum:
+            maximum = minimum_score[0]
+            if maximum in scores_actions.keys():
+                scores_actions.get(maximum).append(action)
+            else:
+                scores_actions[maximum] = [action]
+    return (maximum, random.choice(scores_actions[max(scores_actions.keys())]))
+
+
+def min_score(board):
+    possible_actions = actions(board)
+    minimum = 2
+    scores_actions = {}
+    if terminal(board):
+        return (utility(board), None)
+    for action in possible_actions:
+        maximum_score = max_score(result(board, action))
+        if maximum_score[0] <= minimum:
+            minimum = maximum_score[0]
+            if minimum in scores_actions.keys():
+                scores_actions.get(minimum).append(action)
+            else:
+                scores_actions[minimum] = [action]
+    return (minimum, random.choice(scores_actions[min(scores_actions.keys())]))
+
+
+def deep_copy(board):
+    new_board = []
+    for row in board:
+        row_copy = []
+        for item in row:
+            row_copy.append(item)
+        new_board.append(row_copy)
+    return new_board

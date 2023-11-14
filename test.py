@@ -52,12 +52,12 @@ from tictactoe import player, EMPTY, X, O, actions, result, winner, terminal, ut
 #     )
 # )
 
-print(
-    utility(
-        [
-            [X, O, X],
-            [O, O, X],
-            [X, X, O],
-        ]
-    )
-)
+# print(
+#     utility(
+#         [
+#             [X, O, X],
+#             [O, O, X],
+#             [X, X, O],
+#         ]
+#     )
+# )
