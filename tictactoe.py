@@ -68,7 +68,7 @@ def winner(board):
     """
     # For every row in the board
     for row in board:
-        if row[0] == row[1] == row[2]:
+        if row[0] == row[1] == row[2] != EMPTY:
             return row[0]
 
     # For top-left to right diagonal and the first column
